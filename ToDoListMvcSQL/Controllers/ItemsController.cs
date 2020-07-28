@@ -19,17 +19,23 @@ namespace ToDoListMvcSQL.Controllers
       List<Item> model = _db.Items.ToList();
       return View(model);
     }
-    // public ActionResult Create()
-    // {
-    //     return View();
-    // }
+    public ActionResult Create()
+    {
+        return View();
+    }
 
-    // [HttpPost]
-    // public ActionResult Create(Item item)
-    // {
-    //     _db.Items.Add(item);
-    //     _db.SaveChanges();
-    //     return RedirectToAction("Index");
-    // }
+    public ActionResult Details(int id)
+    {
+      Item thisItem =_db.Items.FirstOrDefault(items => items.ItemId == id);
+      return View(thisItem);
+    }
+
+    [HttpPost]
+    public ActionResult Create(Item item)
+    {
+        _db.Items.Add(item);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+    }
   }
 }
