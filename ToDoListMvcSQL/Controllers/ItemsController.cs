@@ -23,17 +23,43 @@ namespace ToDoListMvcSQL.Controllers
     {
         return View();
     }
-
+    
+    [HttpPost]
+    public ActionResult Create(Item item)
+    {
+        _db.Items.Add(item);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+    }
     public ActionResult Details(int id)
     {
       Item thisItem =_db.Items.FirstOrDefault(items => items.ItemId == id);
       return View(thisItem);
     }
+    public ActionResult Edit(int id)
+    {
+        var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+        return View(thisItem);
+    }
 
     [HttpPost]
-    public ActionResult Create(Item item)
+    public ActionResult Edit(Item item)
     {
-        _db.Items.Add(item);
+        _db.Entry(item).State = EntityState.Modified;
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+    }
+    public ActionResult Delete(int id)
+    {
+        var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+        return View(thisItem);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+        var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+        _db.Items.Remove(thisItem);
         _db.SaveChanges();
         return RedirectToAction("Index");
     }
