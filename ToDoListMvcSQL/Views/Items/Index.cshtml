@@ -1,23 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
-using System.Collections.Generic;
-using System.Linq;
+@{
+  Layout = "_Layout";
+}
 
-namespace ToDoList.Controllers
+@using ToDoListMvcSQL.Models;
+
+<h1>Items</h1>
+
+@if (@Model.Count == 0)
 {
-  public class ItemsController : Controller
-  {
-    private readonly ToDoListContext _db;
+  <h3>No items have been added yet!</h3>
+} 
 
-    public ItemsController(ToDoListContext db)
-    {
-      _db = db;
-    }
-
-    public ActionResult Index()
-    {
-      List<Item> model = _db.Items.ToList();
-      return View(model);
-    }
-  }
+@foreach (Item item in Model)
+{
+  <li>@item.Description</li>
 }
