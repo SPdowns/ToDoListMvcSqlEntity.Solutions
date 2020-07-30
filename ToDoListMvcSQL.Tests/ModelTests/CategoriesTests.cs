@@ -1,9 +1,9 @@
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
-// using ToDoListMvcSQL.Models;
+// using ToDoListMvcSql.Models;
 // using System.Collections.Generic;
 // using System;
 
-// namespace ToDoListMvcSQL.Tests
+// namespace ToDoListMvcSql.Tests
 // {
 //   [TestClass]
 //   public class CategoryTest : IDisposable

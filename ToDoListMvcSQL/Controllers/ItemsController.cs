@@ -1,16 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ToDoListMvcSQL.Models;
+using ToDoListMvcSql.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ToDoListMvcSQL.Controllers
+
+namespace ToDoListMvcSql.Controllers
 {
   public class ItemsController : Controller
   {
-    private readonly ToDoListContext _db;
+    private readonly ToDoListMvcSqlContext _db;
 
-    public ItemsController(ToDoListContext db)
+    public ItemsController(ToDoListMvcSqlContext db)
     {
       _db = db;
     }
@@ -23,7 +25,7 @@ namespace ToDoListMvcSQL.Controllers
     public ActionResult Create()
     {
       ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
-        return View();
+      return View();
     }
     
     [HttpPost]
@@ -48,9 +50,9 @@ namespace ToDoListMvcSQL.Controllers
     [HttpPost]
     public ActionResult Edit(Item item)
     {
-        _db.Entry(item).State = EntityState.Modified;
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+      _db.Entry(item).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
     public ActionResult Delete(int id)
     {

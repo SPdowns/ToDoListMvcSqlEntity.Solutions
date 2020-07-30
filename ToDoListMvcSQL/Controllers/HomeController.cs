@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDoListMvcSQL.Models;
+using ToDoListMvcSql.Models;
 using System.Collections.Generic;
 
-namespace ToDoListMvcSQL.Controllers
+namespace ToDoListMvcSql.Controllers
 {
   public class HomeController : Controller
   {

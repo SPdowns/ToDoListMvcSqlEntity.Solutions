@@ -1,7 +1,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ToDoListMvcSQL
+namespace ToDoListMvcSql
 {
   public class Program
   {

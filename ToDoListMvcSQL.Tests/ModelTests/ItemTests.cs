@@ -1,10 +1,10 @@
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 // using System.Collections.Generic;
 // using MySql.Data.MySqlClient;
-// using ToDoListMvcSQL.Models;
+// using ToDoListMvcSql.Models;
 // using System;
 
-// namespace ToDoListMvcSQL.Tests
+// namespace ToDoListMvcSql.Tests
 // {
 //   [TestClass]
 //   public class ItemTest : IDisposable

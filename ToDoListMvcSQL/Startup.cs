@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using ToDoListMvcSQL.Models;
+using ToDoListMvcSql.Models;
 
-namespace ToDoListMvcSQL
+namespace ToDoListMvcSql
 {
   public class Startup
   {
@@ -25,12 +25,14 @@ namespace ToDoListMvcSQL
       services.AddMvc();
 
       services.AddEntityFrameworkMySql()
-        .AddDbContext<ToDoListContext>(options => options
+        .AddDbContext<ToDoListMvcSqlContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
     }
 
     public void Configure(IApplicationBuilder app)
     {
+      app.UseStaticFiles();
+
       app.UseDeveloperExceptionPage();
 
       app.UseMvc(routes =>
@@ -44,7 +46,6 @@ namespace ToDoListMvcSQL
         {
           await context.Response.WriteAsync("Something went wrong along time ago!");
         });
-
     }
   }
 }

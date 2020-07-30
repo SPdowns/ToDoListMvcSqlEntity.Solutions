@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
+using ToDoListMvcSql.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace ToDoList.Controllers
+namespace ToDoListMvcSql.Controllers
 {
   public class CategoriesController : Controller
   {
-    private readonly ToDoListContext _db;
+    private readonly ToDoListMvcSqlContext _db;
 
-    public CategoriesController(ToDoListContext db)
+    public CategoriesController(ToDoListMvcSqlContext db)
     {
       _db = db;
     }
@@ -24,7 +24,7 @@ namespace ToDoList.Controllers
       return View();
     }
 
-    [HttpPost]  // needed for lazy routing
+    [HttpPost]
     public ActionResult Create(Category category)
     {
       _db.Categories.Add(category);
@@ -34,12 +34,12 @@ namespace ToDoList.Controllers
 
     public ActionResult Details(int id)
     {
-      Category thisCategory = _db.Categories.FirstOrDefault(categories => categories.CategoryId == id);
+      Category thisCategory = _db.Categories.FirstOrDefault(category => category.CategoryId == id);
       return View(thisCategory);
     }
     public ActionResult Edit(int id)
     {
-      var thisCategory = _db.Categories.FirstOrDefault(catergories => catergories.CategoryId == id);
+      var thisCategory = _db.Categories.FirstOrDefault(category => category.CategoryId == id);
       return View(thisCategory);
     }
 
@@ -53,14 +53,14 @@ namespace ToDoList.Controllers
 
     public ActionResult Delete(int id)
     {
-      var thisCategory = _db.Categories.FirstOrDefault(catergories => catergories.CategoryId == id);
+      var thisCategory = _db.Categories.FirstOrDefault(category => category.CategoryId == id);
       return View(thisCategory);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisCategory = _db.Categories.FirstOrDefault(catergories => catergories.CategoryId == id);
+      var thisCategory = _db.Categories.FirstOrDefault(category => category.CategoryId == id);
       _db.Categories.Remove(thisCategory);
       _db.SaveChanges();
       return RedirectToAction("Index");
