@@ -31,20 +31,22 @@ namespace ToDoListMvcSql.Controllers
     [HttpPost]
     public ActionResult Create(Item item)
     {
-        _db.Items.Add(item);
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+      _db.Items.Add(item);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
     public ActionResult Details(int id)
     {
-      Item thisItem =_db.Items.FirstOrDefault(items => items.ItemId == id);
-      return View(thisItem);
+      Category thisCategory = _db.Categories
+      .Include(category => category.Items)
+      .FirstOrDefault(category => category.CategoryId == id);
+      return View(thisCategory);
     }
     public ActionResult Edit(int id)
     {
-        Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
-        ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
-        return View(thisItem);
+      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
+      return View(thisItem);
     }
 
     [HttpPost]
@@ -56,17 +58,17 @@ namespace ToDoListMvcSql.Controllers
     }
     public ActionResult Delete(int id)
     {
-        Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
-        return View(thisItem);
+      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      return View(thisItem);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-        Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
-        _db.Items.Remove(thisItem);
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      _db.Items.Remove(thisItem);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
   }
 }
