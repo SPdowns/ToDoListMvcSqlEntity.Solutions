@@ -1,27 +1,26 @@
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
-// using ToDoListMvcSql.Models;
-// using System.Collections.Generic;
-// using System.Linq;
-// using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ToDoListMvcSql.Models;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
-// namespace ToDoListMvcSql.Controllers
-// {
-//   public class ItemsController : Controller
-//   {
-//     private readonly ToDoListMvcSqlContext _db;
+namespace ToDoListMvcSql.Controllers
+{
+  public class ItemsController : Controller
+  {
+    private readonly ToDoListMvcSqlContext _db;
 
-//     public ItemsController(ToDoListMvcSqlContext db)
-//     {
-//       _db = db;
-//     }
+    public ItemsController(ToDoListMvcSqlContext db)
+    {
+      _db = db;
+    }
 
-//     public ActionResult Index()
-//     {
-//       List<Item> model = _db.Items.Include(items => items.Category).ToList();
-//       return View(model);
-//     }
+    public ActionResult Index()
+    {
+      return View(_db.Items.ToList());
+    }
 //     public ActionResult Create()
 //     {
 //       ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
@@ -35,13 +34,16 @@
 //       _db.SaveChanges();
 //       return RedirectToAction("Index");
 //     }
-//     public ActionResult Details(int id)
-//     {
-//       Category thisCategory = _db.Categories
-//       .Include(category => category.Items)
-//       .FirstOrDefault(category => category.CategoryId == id);
-//       return View(thisCategory);
-//     }
+
+    public ActionResult Details(int id)
+    {
+      var thisItem = _db.Items
+      .Include(item => item.Categories)
+      .ThenInclude(join => join.Category)
+      .FirstOrDefault(item => item.ItemId == id);
+      return View(thisItem);
+    }
+
 //     public ActionResult Edit(int id)
 //     {
 //       Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
@@ -70,5 +72,5 @@
 //       _db.SaveChanges();
 //       return RedirectToAction("Index");
 //     }
-//   }
-// }
+  }
+}
