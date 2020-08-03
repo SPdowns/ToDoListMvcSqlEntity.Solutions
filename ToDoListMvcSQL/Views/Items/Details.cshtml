@@ -19,10 +19,17 @@ else
   @foreach (var join in Model.Categories)
   {
     <li>@join.Category.Name</li>
+    @using (Html.BeginForm("DeleteCategory", "Items"))
+    {
+      @Html.Hidden("joinId", @join.CategoryItemId)
+      <input type="sumbit" value="Delete" class="btn"/>
+    }
   }
   </ul>
 }
 
+
 <button>@Html.ActionLink("Back to list", "Index")</button>
 <button>@Html.ActionLink("Edit Item", "Edit", new { id = Model.ItemId })</button>
 <button>@Html.ActionLink("Delete Item", "Delete", new { id = Model.ItemId })</button>
+<p>@Html.ActionLink("Add a Category", "AddCategory", new { id = Model.ItemId })</p>
