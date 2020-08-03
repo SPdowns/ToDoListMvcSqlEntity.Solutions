@@ -107,6 +107,5 @@ namespace ToDoListMvcSql.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    
   }
 }

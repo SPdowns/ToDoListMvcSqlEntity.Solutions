@@ -6,14 +6,16 @@
 @model List<ToDoListMvcSql.Models.Item>;
 
 
-
 <h1>Items</h1>
 
-<ul>
   @foreach(Item item in Model)
   {
-      <li>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId })</li>
+      @Html.CheckBox("IsComplete", @item.IsComplete)  
+      @Html.ActionLink($"{ item.Description}", "Details", new { id = item.ItemId })
+      <br>
+      @* <input type="checkbox" id="MyBooleanValue" name="MyBooleanValue" value= @item.IsComplete>
+      <label for="MyBooleanValue">Finished!</label> *@
   }
-</ul>
 
 <p>@Html.ActionLink("Add new item", "Create")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

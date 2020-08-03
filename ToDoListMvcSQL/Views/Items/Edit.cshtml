@@ -18,6 +18,10 @@
   @Html.Label("Select category")
   @Html.DropDownList("CategoryId")
 
+  @Html.LabelFor(model => model.IsComplete)
+  @Html.CheckBox("IsComplete", Model.IsComplete)
+
   <input type="submit" value="Save" />
 }
 <p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
